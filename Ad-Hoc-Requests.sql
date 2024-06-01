@@ -1,12 +1,14 @@
 #CODEBASICS SQL PROJECT 
 
 #Task 1
+ 
 SELECT 
 market
 FROM gdb0041.dim_customer 
 where customer ="Atliq Exclusive" and region ="APAC";
 
 #Task 2
+ 
 with cte1 as 
 ( 
 SELECT count(distinct p.product_code) as unique_products_2020
@@ -26,12 +28,14 @@ round(((unique_products_2021 - unique_products_2020) / unique_products_2020) * 1
  from cte1,cte2;
 
  #Task 3
+  
  SELECT distinct segment, count(distinct product_code) as product_count
 from dim_product
 group by segment
 order by product_count desc;
 
 #Task 4
+ 
 with cte1 as (SELECT distinct segment, count(distinct p.product_code) as product_count_2020
 from dim_product p 
 cross join fact_sales_monthly s
@@ -58,6 +62,7 @@ INNER JOIN
     limit 1;
 
 #Task 5
+ 
 SELECT p.product_code, p.product, f.manufacturing_cost
 FROM dim_product p
 JOIN fact_manufacturing_cost f ON p.product_code = f.product_code
@@ -69,6 +74,7 @@ JOIN fact_manufacturing_cost f ON p.product_code = f.product_code
 WHERE f.manufacturing_cost = (SELECT MIN(manufacturing_cost) FROM fact_manufacturing_cost);
 
 #Task 6 
+ 
  SELECT 
     c.customer_code,
     c.customer,
@@ -88,6 +94,7 @@ ORDER BY
 LIMIT 5;
 
 #Task 7 
+ 
 SELECT 
     DATE_FORMAT(s.date, '%b') AS Month,
     s.fiscal_year as Year,
@@ -101,6 +108,7 @@ AND c.customer = 'Atliq Exclusive'
 GROUP BY Year, Month;
 
 #Task 8
+ 
 with cte as(
 select *,
 case
@@ -120,6 +128,7 @@ group by Quarter
 order by total_sold_quantity desc;
     
  #Task 9
+  
    WITH cte1 as(
 SELECT c.channel,
        ROUND(SUM(g.gross_price * fs.sold_quantity/1000000), 2) AS Gross_sales_mln
@@ -139,6 +148,7 @@ FROM
 ORDER BY percentage DESC ;
 
 #Task 10
+ 
 WITH cte1 AS (
     SELECT 
         p.division,
